@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+</head>
+
+<body style="background-image: url('https://wallpapersok.com/images/high/gengar-pokemon-4k-1xybxrhafhvwq8xh.jpg');">
+  <div class="container">
+    <h1 class="heading">Pokedex</h1>
+    
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="pokemon_name" placeholder="Enter Pokemon Name" required>
+      <button type="submit" class="btn">Search</button>
+    </form>
+    <div class="weather">
+      <div class="left">
+        <h1 class="temp">{{ name }}</h1>
+        <h2 class="city">{{ weight }} kg</h2>
+        <h2 class="city">{{ height }} m</h2>
+      </div>
+      <div class="right">
+        <div class="icon">
+          <p><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ poke_id }}.png" width="200px"></p>
+        </div>
+        <div class="condition">
+          <h1>{{ types }}</h1>
+          <p>{{ day }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% if exception_occurred %}
+    <script>
+        window.onload = function() {
+            alert("City information is not available to Weather API");
+        }
+    </script>
+{% endif %}
+</body>
+</html>
